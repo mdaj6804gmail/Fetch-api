@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch Api</title>
+</head>
+
+<body>
+    <style>
+        #Parent{
+            display:flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .main{
+          display: flex;
+        
+          gap: 20px;
+          flex-wrap: wrap;
+         
+        }
+        .main img{
+            border: 2px solid rgb(67, 102, 255);
+        }
+        .container{
+            /* width: 80%; */
+            margin: 0 auto;
+        }
+        @media(max-width:768px){
+            #Parent{
+            display:grid;
+            flex-wrap: wrap;
+            grid-template-columns:repeat(2,130px);
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        }
+    </style>
+    <div class="container">
+
+        <div id="Parent"></div>
+    </div>
+    <script>
+        fetch('https://randomuser.me/api/?results=5000')
+            .then(res => res.json())
+            .then(x => {
+                // console.log(x.results);
+                let AA = x.results;
+             
+                let fetchapi2 = () => {
+                 return(   document.getElementById('Parent').innerHTML = AA.map((x) => {
+                        // console.log(x)
+                        let { avatar, email, first_name, last_name, id ,picture} = x;
+                        return `
+                        <div class="main">
+                            <img src="${picture.large}" alt="">
+                            </div>
+                        `
+                    }).join('')
+            )}
+                // <div class="detels">
+                //                 <h5>Name:${first_name+"  "+last_name}</h5>
+                //                 <p>Email:${email}</p>
+                //                 <p>Id:${id}</p>
+                //             </div>
+                //             </div>
+                fetchapi2()
+
+            })
+    </script>
+</body>
+
+</html>
